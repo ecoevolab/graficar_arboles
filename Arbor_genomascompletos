@@ -1,0 +1,17 @@
+#!/bin/env bash
+#$ -N gen_completos
+#$ -o $JOB_NAME.log
+#$ -e $JOB_NAME.error
+#$ -S /bin/bash
+
+date
+echo "===== Beginning pipeline ====="
+
+mamba activate pyani_0.3
+cd $GROUP_HOME/users/ipereza/data
+pyani anim -i Genomas_completos -o arb_completo
+pyani report -v --runs -o arb_completo --formats excel --run_results 1
+pyani report -o arb_completo --formats=stdout --run_matrices 1
+
+echo "===== Pipeline done ====="
+date
